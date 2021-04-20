@@ -1,9 +1,18 @@
-<mvc:View controllerName="logaligroup.Employees.controller.MainView" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+<mvc:View
+        controllerName="logaligroup.Employees.controller.MainView"
+        xmlns:mvc="sap.ui.core.mvc"
+        displayBlock="true"
+        xmlns="sap.m">
 	<Shell id="shell">
 		<App id="app">
 			<pages>
 				<Page id="page" title="{i18n>title}">
-					<content></content>
+					<content>
+                        <HBox >
+                            <Label id="labelEmployee" labelFor="inputEmployee" text="{i18n>labelEmployee}" class="sapUiSmallMargin" />
+                            <Input id="inputEmployee" maxLength="10" width="200px" class="sapUiSmallMarginEnd" />
+                        </HBox>
+                    </content>
 				</Page>
 			</pages>
 		</App>
