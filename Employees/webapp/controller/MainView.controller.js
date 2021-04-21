@@ -5,11 +5,24 @@ sap.ui.define([
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
 	function (Controller) {
-		"use strict";
+        "use strict";
+        
+        function MyCheck() {
+            var inputEmployee = this.byId("inputEmployee");
+                var valueEmployee = inputEmployee.getValue();
 
-		return Controller.extend("logaligroup.Employees.controller.MainView", {
+                if (valueEmployee.length === 6) {
+                    inputEmployee.setDescription("OK");
+                } else {
+                    inputEmployee.setDescription("Not OK");
+                };
+        }
+
+		return Controller.extend("logaligroup.Employees.controller.MainView", { 
 			onInit: function () {
 
-			}
+            },
+            
+            onValidate: MyCheck
 		});
 	});
