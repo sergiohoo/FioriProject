@@ -18,7 +18,7 @@
     "dataSources": {
       "mainService": {
         "uri": "Northwind/v2/Northwind/Northwind.svc/",
-        "type": "OData",
+        "type": "JSON",
         "settings": {
           "odataVersion": "2.0",
           "localUri": "localService/metadata.xml"

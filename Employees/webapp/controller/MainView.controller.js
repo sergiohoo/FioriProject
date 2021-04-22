@@ -1,21 +1,19 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/core/mvc/Controller"
 ],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
-     * @param {typeof sap.ui.model.json.JSONModel} JSONModel
      */
-    function (Controller, JSONModel) {
+    function (Controller) {
         "use strict";
 
         function onInit() {
-            var oJSONModel = new JSONModel();
+            var oJSONModel = new sap.ui.model.json.JSONModel();
             var oView = this.getView();
             var i18nBundle = oView.getModel("i18n").getResourceBundle();
 
             var oJSON = {
-                employeeId: "123456",
+                employeeId: "12345",
                 countryKey: "UK",
                 listCountry: [
                     {

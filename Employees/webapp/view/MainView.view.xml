@@ -11,14 +11,22 @@
 					<content>
                         <HBox >
                             <Label id="labelEmployee" labelFor="inputEmployee" text="{i18n>labelEmployee}" class="sapUiSmallMargin" />
-                            <Input id="inputEmployee" maxLength="6" width="200px" class="sapUiSmallMarginEnd" liveChange="onValidate" />
+                            <Input id="inputEmployee"
+                                    value="{/employeeId}"
+                                    maxLength="6" width="200px"
+                                    class="sapUiSmallMarginEnd" liveChange="onValidate" />
 
-                            <Label id="labelCountry" labelFor="slCountry" text="{i18n>labelCountry}" class="sapUiSmallMargin" visible="false" />
-                            <Select id="slCountry" forceSelection="false" visible="false">
+                            <Label id="labelCountry"
+                                    labelFor="slCountry"
+                                    text="{i18n>labelCountry}"
+                                    class="sapUiSmallMargin" visible="false" />
+                            <Select id="slCountry"
+                                selectedKey="{/countryKey}"
+                                forceSelection="false"
+                                items="{path:'/listCountry'}"
+                                visible="false">
                                 <items>
-                                    <core:Item key="US" text="{i18n>countryUS}"></core:Item>
-                                    <core:Item key="UK" text="{i18n>countryUK}"></core:Item>
-                                    <core:Item key="ES" text="{i18n>countryES}"></core:Item>
+                                    <core:Item key="{key}" text="{text}"></core:Item>
                                 </items>
                             </Select>
                         </HBox>
