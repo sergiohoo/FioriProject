@@ -15,21 +15,17 @@
                                     value="{/EmployeeId}"
                                     maxLength="6" width="200px"
                                     class="sapUiSmallMarginEnd" />
-                            <Label id="labelCountry"
-                                    labelFor="slCountry"
-                                    text="{i18n>labelCountry}"
-                                    class="sapUiSmallMargin" />
-                            <Select id="slCountry"
-                                selectedKey="{/CountryKey}"
-                                forceSelection="false"
-                                items="{path:'/ListCountry'}"
-                                class="sapUiSmallMarginEnd">
-                                <items>
-                                    <core:Item key="{Key}" text="{Text}"></core:Item>
-                                </items>
+                            <Label id="labelCountry" labelFor="slCountry" text="{i18n>labelCountry}" class="sapUiSmallMargin" />
+                            <Select id="slCountry" selectedKey="{/CountryKey}" forceSelection="false" items="{path:'/ListCountry'}"
+                                        class="sapUiSmallMarginEnd">
+                                    <items>
+                                        <core:Item key="{Key}" text="{Text}"></core:Item>
+                                    </items>
                             </Select>
-                            <Button id="btnFilter" text="{i18n>btnFilter}" icon="sap-icon://search" press="onFilter" class="sapUiSmallMarginEnd" />
-                            <Button id="btnClearFilter" text="{i18n>btnClearFilter}" icon="sap-icon://clear-filter" press="onClearFilter" class="sapUiSmallMarginEnd" />
+                            <Button id="btnFilter" text="{i18n>btnFilter}" icon="sap-icon://search"
+                                    press="onFilter" class="sapUiSmallMarginEnd" />
+                            <Button id="btnClearFilter" text="{i18n>btnClearFilter}" icon="sap-icon://clear-filter"
+                                    press="onClearFilter" class="sapUiSmallMarginEnd" />
                         </HBox>
                         <HBox >
                             <Panel>

@@ -10,7 +10,6 @@ sap.ui.define([
      */
     function (Controller, Filter, FilterOperator) {
         "use strict";
-
         function onInit() {
             var oJSONModel = new sap.ui.model.json.JSONModel();
             var oView = this.getView();
@@ -22,27 +21,20 @@ sap.ui.define([
             // });
             oView.setModel(oJSONModel);
         }
-
         function onFilter() {
             var oJSON = this.getView().getModel().getData();
-
             var filters = [];
-
             if(oJSON.EmployeeId !== "") {
                 filters.push(new Filter("EmployeeID", FilterOperator.EQ, oJSON.EmployeeId));
             }
-            
             if(oJSON.CountryKey !== "") {
                 filters.push(new Filter("Country", FilterOperator.EQ, oJSON.CountryKey));
             }
-
             var oList = this.getView().byId("tableEmployee");
             var oBinding = oList.getBinding("items");
             oBinding.filter(filters);
         }
-
-        function onClearFilter() {
-            
+        function onClearFilter() {      
             var oModel = this.getView().getModel();
             oModel.setProperty("/EmployeeId","");          
             oModel.setProperty("/CountryKey","");          
@@ -54,7 +46,6 @@ sap.ui.define([
         }
 
         var Main = Controller.extend("logaligroup.Employees.controller.MainView", {});
-
         Main.prototype.onValidate = function () {
             var inputEmployee = this.getView().byId("inputEmployee");
             var valueEmployee = inputEmployee.getValue();
@@ -69,7 +60,6 @@ sap.ui.define([
                 this.getView().byId("slCountry").setVisible(false);
             };
         }
-
         Main.prototype.onInit = onInit;
         Main.prototype.onFilter = onFilter;
         Main.prototype.onClearFilter = onClearFilter;
