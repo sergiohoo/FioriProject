@@ -53,7 +53,7 @@
                                         </Column>
                                     </columns>
                                     <items>
-                                        <ColumnListItem >
+                                        <ColumnListItem type="Active" press="onShowPostalCode">
                                             <cells>
                                                 <Label text="{EmployeeID}" />
                                                 <Label text="{LastName}, {FirstName}" />
