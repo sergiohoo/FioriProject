@@ -78,6 +78,14 @@ sap.ui.define([
             oModelConfig.setProperty("/visibleBtnHideCity",false);
         }
 
+        function onShowOrders (oEvent) {
+            var itemPressed = oEvent.getSource();
+            var oContext = itemPressed.getBindingContext("jsonEmployees");
+            var objectContext = oContext.getObject();
+            
+            sap.m.MessageToast.show(objectContext.Orders);
+        }
+
         var Main = Controller.extend("logaligroup.Employees.controller.MainView", {});
 
         Main.prototype.onValidate = function () {
@@ -100,5 +108,6 @@ sap.ui.define([
         Main.prototype.onShowPostalCode = onShowPostalCode;
         Main.prototype.onShowCity = onShowCity;
         Main.prototype.onHideCity = onHideCity;
+        Main.prototype.onShowOrders = onShowOrders;
         return Main;
     });
