@@ -1,3 +1,4 @@
+// @ts-nocheck
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/Filter",
@@ -79,11 +80,35 @@ sap.ui.define([
         }
 
         function onShowOrders (oEvent) {
+            var tblOrders = this.getView().byId("tblOrders");
+            tblOrders.destroyItems();
+
             var itemPressed = oEvent.getSource();
             var oContext = itemPressed.getBindingContext("jsonEmployees");
             var objectContext = oContext.getObject();
-            
-            sap.m.MessageToast.show(objectContext.Orders);
+            var orders = objectContext.Orders;           
+            var orderItems = [];
+
+            for (var i in orders) {
+                orderItems.push(new sap.m.ColumnListItem({
+                    cells : [
+                        new sap.m.Label({ text: orders[i].OrderID }),
+                        new sap.m.Label({ text: orders[i].Freight }),
+                        new sap.m.Label({ text: orders[i].ShipAddress })
+                    ]
+                }));
+            }
+            var newTable = new sap.m.Table({
+                width: "auto",
+                columns: [
+                    new sap.m.Column({ header: new sap.m.Label({text: "{i18n>orderID}"})}),
+                    new sap.m.Column({ header: new sap.m.Label({text: "{i18n>freight}"})}),
+                    new sap.m.Column({ header: new sap.m.Label({text: "{i18n>shipAddress}"})})
+                ],
+                items: orderItems
+            }).addStyleClass("sapUiSmallMargin");
+
+            tblOrders.addItem(newTable);
         }
 
         var Main = Controller.extend("logaligroup.Employees.controller.MainView", {});
