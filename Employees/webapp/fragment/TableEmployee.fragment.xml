@@ -28,14 +28,20 @@
                         <Label text="{i18n>tableCity}" />
                     </header>
                 </Column>
+                <Column width="100px">
+                    <header>
+                        <Label text="{i18n>tableShowDetails}" />
+                    </header>
+                </Column>
             </columns>
             <items>
-                <ColumnListItem type="Active" press="onShowOrders">
+                <ColumnListItem>
                     <cells>
                         <Label text="{jsonEmployees>EmployeeID}" />
                         <Label text="{jsonEmployees>LastName}, {jsonEmployees>FirstName}" />
                         <Label text="{jsonEmployees>Country}" />
                         <Label text="{jsonEmployees>City}" />
+                        <core:Icon src="sap-icon://show" press="onShowOrders"></core:Icon>
                     </cells>
                 </ColumnListItem>
             </items>
