@@ -12,26 +12,7 @@ sap.ui.define([
     function (Controller, Filter, FilterOperator) {
         "use strict";
         function onInit() {
-            var oView = this.getView();
-            // var i18nBundle = oView.getModel("i18n").getResourceBundle();
-
-            var oJSONModelEmployees = new sap.ui.model.json.JSONModel();
-            oJSONModelEmployees.loadData("./localService/mockdata/Employees.json", false);
-            oView.setModel(oJSONModelEmployees, "jsonEmployees");
-
-            var oJSONModelCountries = new sap.ui.model.json.JSONModel();
-            oJSONModelCountries.loadData("./localService/mockdata/Countries.json", false);
-            oView.setModel(oJSONModelCountries, "jsonCountries");
-
-            var oJSONModelConfig = new sap.ui.model.json.JSONModel({
-                visibleID: true,
-                visibleName: true,
-                visibleCountry: true,
-                visibleCity: false,
-                visibleBtnShowCity: true,
-                visibleBtnHideCity: false
-            });
-            oView.setModel(oJSONModelConfig, "jsonModelConfig");
+            
         }
         function onFilter() {
             var oJSONCountries = this.getView().getModel("jsonCountries").getData();
@@ -182,7 +163,7 @@ sap.ui.define([
             tblOrders.addItem(newTableJSON);
         }
 
-        var Main = Controller.extend("logaligroup.Employees.controller.MainView", {});
+        var Main = Controller.extend("logaligroup.Employees.controller.MasterEmployee", {});
 
         Main.prototype.onValidate = function () {
             var inputEmployee = this.getView().byId("inputEmployee");
