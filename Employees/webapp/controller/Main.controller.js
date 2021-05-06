@@ -34,6 +34,16 @@ sap.ui.define([
                 var oJSONModelLayout = new sap.ui.model.json.JSONModel();
                 oJSONModelLayout.loadData("./localService/mockdata/Layout.json", false);
                 oView.setModel(oJSONModelLayout, "jsonLayout");
+
+                this._bus = sap.ui.getCore().getEventBus();
+
+                this._bus.subscribe("flexible","onShowEmployee", this.showEmployeeDetails, this);
+            },
+
+            showEmployeeDetails: function (category, nameEvent, path) {
+                var detailView = this.getView().byId("detailEmployeeView");
+                detailView.bindElement("jsonEmployees>" + path);
+                this.getView().getModel("jsonLayout").setProperty("/ActiveKey", "TwoColumnsMidExpanded");
             }
         });
     });

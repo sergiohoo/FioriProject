@@ -35,7 +35,7 @@
                 </Column>
             </columns>
             <items>
-                <ColumnListItem>
+                <ColumnListItem type="Navigation" press="onShowEmployee">
                     <cells>
                         <Label text="{jsonEmployees>EmployeeID}" />
                         <Label text="{jsonEmployees>LastName}, {jsonEmployees>FirstName}" />

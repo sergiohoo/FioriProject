@@ -12,8 +12,9 @@ sap.ui.define([
     function (Controller, Filter, FilterOperator) {
         "use strict";
         function onInit() {
-            
+            this._bus = sap.ui.getCore().getEventBus();    
         }
+
         function onFilter() {
             var oJSONCountries = this.getView().getModel("jsonCountries").getData();
             var filters = [];
@@ -163,6 +164,11 @@ sap.ui.define([
             tblOrders.addItem(newTableJSON);
         }
 
+        function onShowEmployee(oEvent) {
+            var path = oEvent.getSource().getBindingContext("jsonEmployees").getPath();
+            this._bus.publish("flexible","onShowEmployee",path);
+        }
+
         var Main = Controller.extend("logaligroup.Employees.controller.MasterEmployee", {});
 
         Main.prototype.onValidate = function () {
@@ -188,5 +194,6 @@ sap.ui.define([
         Main.prototype.onShowOrders = onShowOrders;
         Main.prototype.onShowOrdersDialog = onShowOrdersDialog;
         Main.prototype.onCloseOrdersDialog = onCloseOrdersDialog;
+        Main.prototype.onShowEmployee = onShowEmployee;
         return Main;
     });
