@@ -16,9 +16,9 @@
       "version": "1.40.12"
     },
     "dataSources": {
-      "mainService": {
+      "Northwind.svc": {
         "uri": "Northwind/v2/Northwind/Northwind.svc/",
-        "type": "JSON",
+        "type": "OData",
         "settings": {
           "odataVersion": "2.0",
           "localUri": "localService/metadata.xml"
@@ -69,12 +69,13 @@
           "bundleName": "logaligroup.Employees.i18n.i18n"
         }
       },
-      "": {
-        "dataSource": "mainService",
+      "odataNorthwind": {
+        "dataSource": "Northwind.svc",
         "preload": true,
         "settings": {
-          "defaultBindingMode": "TwoWay",
-          "defaultCountMode": "Inline",
+          "defaultBindingMode": "OneWay",
+          "defaultOperationMode" : "Server",
+          "defaultCountMode": "Request",
           "refreshAfterChange": false
         }
       }
