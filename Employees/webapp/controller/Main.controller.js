@@ -1,11 +1,13 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox"
 ],
     /**
      * 
      * @param {sap.ui.core.mvc.Controller} Controller 
+     * @param {sap.m.MessageBox} MessageBox
      */
-    function (Controller) {
+    function (Controller, MessageBox) {
 
         return Controller.extend("logaligroup.Employees.controller.Main", {
 
@@ -82,11 +84,12 @@ sap.ui.define([
                     this.getView().getModel("incidenceModel").create("/IncidentsSet", body, {
                         success: function () {
                             this.onReadODataIncidence.bind(this)(employeeId.toString());
+                            MessageBox.success(oResourceBundle.getText("odataSaveOK"));
                             //sap.m.MessageToast.show(oResourceBundle.getText("odataSaveOK"),{duration:20000});
                         }.bind(this),
                         error: function (e) {
                             this.onReadODataIncidence.bind(this)(employeeId.toString());
-                            //sap.m.MessageToast.show(oResourceBundle.getText("odataSaveError"));
+                            sap.m.MessageToast.show(oResourceBundle.getText("odataSaveError"));
                         }.bind(this)
                     });
                 }
