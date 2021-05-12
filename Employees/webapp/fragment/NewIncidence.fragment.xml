@@ -9,7 +9,7 @@
                             {path: 'incidenceModel>CreationDate', formatter: '.Formatter.dateFormat' }" />
 
                 <ToolbarSpacer />
-                <Button icon="sap-icon://save" press="onSaveIncidence" />
+                <Button icon="sap-icon://save" press="onSaveIncidence" enabled="{= ${incidenceModel>EnabledSave} === true}" />
                 <core:Icon src="sap-icon://delete" press="onDeleteIncidence" />
             </Toolbar>
         </headerToolbar>

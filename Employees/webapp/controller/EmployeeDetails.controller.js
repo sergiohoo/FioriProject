@@ -20,7 +20,7 @@ sap.ui.define([
             var incidenceModel = this.getView().getModel("incidenceModel");
             var odata = incidenceModel.getData();
             var index = odata.length;
-            odata.push({ index: index + 1, _ValidateDate: false });
+            odata.push({ index: index + 1, _ValidateDate: false, EnabledSave: false });
             incidenceModel.refresh();
             newIncidence.bindElement("incidenceModel>/" + index);
             tableIncidence.addContent(newIncidence);
@@ -64,6 +64,13 @@ sap.ui.define([
                 contextObject.CreationDateX = true;
                 contextObject._ValidateDate = true;
                 contextObject.CreationDateState = "None";
+            };
+
+            if(oEvent.getSource().isValidValue() && contextObject.Reason) {
+                contextObject.EnabledSave = true;
+            }
+            else {
+                contextObject.EnabledSave = false;
             }
 
             context.getModel().refresh();
@@ -81,13 +88,29 @@ sap.ui.define([
                 contextObject.ReasonState = "None";
             }
 
+            if(oEvent.getSource().getValue() && contextObject._ValidateDate) {
+                contextObject.EnabledSave = true;
+            }
+            else {
+                contextObject.EnabledSave = false;
+            }
+
             context.getModel().refresh();
         };
 
         function updateIncidenceType (oEvent) {
-            var context = oEvent.getSource().getBindingContext("incidenceModel");
-            var contextObject = context.getObject();
+            let context = oEvent.getSource().getBindingContext("incidenceModel");
+            let contextObject = context.getObject();
             contextObject.TypeX = true;
+
+            if(contextObject.Reason && contextObject._ValidateDate) {
+                contextObject.EnabledSave = true;
+            }
+            else {
+                contextObject.EnabledSave = false;
+            }
+
+            context.getModel().refresh();
         };
 
         var EmployeeDetails = Controller.extend("logaligroup.Employees.controller.EmployeeDetails", {});
