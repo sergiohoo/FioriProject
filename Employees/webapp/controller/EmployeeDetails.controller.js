@@ -9,7 +9,7 @@ sap.ui.define([
     function (Controller, formatter) {
 
         function onInit() {
-
+            this._bus = sap.ui.getCore().getEventBus();
         };
 
         function onCreateIncidence () {
@@ -44,10 +44,39 @@ sap.ui.define([
             }
         };
 
+        function onSaveIncidence(oEvent) {
+            var incidence = oEvent.getSource().getParent().getParent();
+            var rowIncidence = incidence.getBindingContext("incidenceModel");
+            var temp = rowIncidence.sPath.replace('/','');
+            this._bus.publish("incidence", "onSaveIncidence", {rowIncidence: rowIncidence.sPath.replace('/','')})
+        };
+
+        function updateIncidenceCreationDate (oEvent) {
+            var context = oEvent.getSource().getBindingContext("incidenceModel");
+            var contextObject = context.getObject();
+            contextObject.CreationDateX = true;
+        };
+
+        function updateIncidenceReason (oEvent) {
+            var context = oEvent.getSource().getBindingContext("incidenceModel");
+            var contextObject = context.getObject();
+            contextObject.ReasonX = true;
+        };
+
+        function updateIncidenceType (oEvent) {
+            var context = oEvent.getSource().getBindingContext("incidenceModel");
+            var contextObject = context.getObject();
+            contextObject.TypeX = true;
+        };
+
         var EmployeeDetails = Controller.extend("logaligroup.Employees.controller.EmployeeDetails", {});
 
         EmployeeDetails.prototype.onInit = onInit;
         EmployeeDetails.prototype.onCreateIncidence = onCreateIncidence;
         EmployeeDetails.prototype.onDeleteIncidence = onDeleteIncidence;
         EmployeeDetails.prototype.Formatter = formatter;
+        EmployeeDetails.prototype.onSaveIncidence = onSaveIncidence;
+        EmployeeDetails.prototype.updateIncidenceCreationDate = updateIncidenceCreationDate;
+        EmployeeDetails.prototype.updateIncidenceReason = updateIncidenceReason;
+        EmployeeDetails.prototype.updateIncidenceType = updateIncidenceType;
     });
