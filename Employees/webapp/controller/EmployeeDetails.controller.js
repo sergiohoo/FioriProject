@@ -18,7 +18,7 @@ sap.ui.define([
             var incidenceModel = this.getView().getModel("incidenceModel");
             var odata = incidenceModel.getData();
             var index = odata.length;
-            odata.push({ index: index + 1 });
+            odata.push({ index: index + 1, _ValidateDate: false });
             incidenceModel.refresh();
             newIncidence.bindElement("incidenceModel>/" + index);
             tableIncidence.addContent(newIncidence);
@@ -41,15 +41,35 @@ sap.ui.define([
         };
 
         function updateIncidenceCreationDate (oEvent) {
-            var context = oEvent.getSource().getBindingContext("incidenceModel");
-            var contextObject = context.getObject();
-            contextObject.CreationDateX = true;
+            let context = oEvent.getSource().getBindingContext("incidenceModel");
+            let contextObject = context.getObject();
+            
+            if(!oEvent.getSource().isValidValue()) {
+                contextObject._ValidateDate = false;
+                contextObject.CreationDateState = "Error";
+            }
+            else {
+                contextObject.CreationDateX = true;
+                contextObject._ValidateDate = true;
+                contextObject.CreationDateState = "None";
+            }
+
+            context.getModel().refresh();
         };
 
         function updateIncidenceReason (oEvent) {
-            var context = oEvent.getSource().getBindingContext("incidenceModel");
-            var contextObject = context.getObject();
-            contextObject.ReasonX = true;
+            let context = oEvent.getSource().getBindingContext("incidenceModel");
+            let contextObject = context.getObject();
+
+            if(!oEvent.getSource().getValue()) {
+                contextObject.ReasonState = "Error";
+            }
+            else {
+                contextObject.ReasonX = true;
+                contextObject.ReasonState = "None";
+            }
+
+            context.getModel().refresh();
         };
 
         function updateIncidenceType (oEvent) {
