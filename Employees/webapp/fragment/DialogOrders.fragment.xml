@@ -1,10 +1,11 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
     <Dialog title="{i18n>orders}">
         <content>
-            
+            <core:Fragment fragmentName="logaligroup.Employees.fragment.TableOrders" type="XML" />
         </content>
         <endButton>
             <Button text="{i18n>close}" press="onCloseOrdersDialog"></Button>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>
+
