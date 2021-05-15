@@ -9,10 +9,18 @@ sap.ui.define([
      */
     function (Controller, History) {
 
+        function _onObjectMatched(oEvent) {
+            this.getView().bindElement({
+                path: "/Orders(" + oEvent.getParameter("arguments").OrderID + ")",
+                model: "odataNorthwind"
+            });
+        }
+
         return Controller.extend("logaligroup.Employees.controller.OrderDetails", {
 
             onInit: function () {
-
+                let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                oRouter.getRoute("RouteOrderDetails").attachPatternMatched(_onObjectMatched, this);
             },
             onBack: function (oEvent) {
                 let oHistory = History.getInstance();
@@ -21,7 +29,7 @@ sap.ui.define([
                 if(sPreviousHash !== undefined) {
                     window.history.go(-1);
                 } else {
-                    var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                    let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                     oRouter.navTo("RouteMain", true);
                 }
             }

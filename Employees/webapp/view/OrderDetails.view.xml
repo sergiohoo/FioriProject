@@ -3,7 +3,9 @@
         xmlns:mvc="sap.ui.core.mvc"
         displayBlock="true"
         xmlns="sap.m"
-        xmlns:core="sap.ui.core">
+        xmlns:core="sap.ui.core"
+        xmlns:l="sap.ui.layout"
+        xmlns:f="sap.ui.layout.form">
 
         <Page >
             <customHeader>
@@ -12,10 +14,48 @@
                         <Button icon="sap-icon://nav-back" press="onBack"></Button>
                     </contentLeft>
                     <contentMiddle>
-                        <Text text="Order details"></Text>
+                        <Text text="{i18n>DetailsOrderId}: {odataNorthwind>OrderID}"></Text>
                     </contentMiddle>
                 </Bar>
             </customHeader>
+            <content>
+                <Panel headerText="{i18n>DetailsCustomerID}: {odataNorthwind>CustomerID}">
+                    <l:Grid defaultSpan="L6 M6 S12">
+                        <f:Form editable="false">
+                            <f:layout>
+                                <f:ResponsiveGridLayout labelSpanL="6" labelSpanM="6" labelSpanS="12">
+                                </f:ResponsiveGridLayout>
+                            </f:layout>
+                            <f:formContainers>
+                                <f:FormContainer>
+                                    <f:formElements>
+                                        <f:FormElement label="{i18n>DetailsOrderDate}">
+                                            <f:fields>
+                                                <Text text="{path:'odataNorthwind>OrderDate', type:'sap.ui.model.odata.type.Date'}"></Text>
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="{i18n>DetailsFreight}">
+                                            <f:fields>
+                                                <Text text="{path:'odataNorthwind>Freight'}"></Text>
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="{i18n>DetailsShipName}">
+                                            <f:fields>
+                                                <Text text="{path:'odataNorthwind>ShipName'}"></Text>
+                                            </f:fields>
+                                        </f:FormElement>
+                                        <f:FormElement label="{i18n>DetailsShipAddress}">
+                                            <f:fields>
+                                                <Text text="{path:'odataNorthwind>ShipAddress'}, {path:'odataNorthwind>ShipCity'}, {path:'odataNorthwind>ShipCountry'}"></Text>
+                                            </f:fields>
+                                        </f:FormElement>
+                                    </f:formElements>
+                                </f:FormContainer>
+                            </f:formContainers>
+                        </f:Form>
+                    </l:Grid>
+                </Panel>
+            </content>
         </Page>
 
 </mvc:View>
