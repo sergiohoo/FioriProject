@@ -50,10 +50,13 @@ sap.ui.define([
                 var canvas = document.querySelector("canvas");
                 try {
                     this.signaturePad = new SignaturePad(canvas);
-                    this.signaturePad.fill = false;
-                    canvas.addEventListener("mousedown", function () {
-                        this.signaturePad.fill = true;
-                    }).bind(this);
+                    if(this.signaturePad)
+                    {
+                        this.signaturePad.fill = false;
+                        canvas.addEventListener("mousedown", function () {
+                            this.signaturePad.fill = true;
+                        }.bind(this));
+                    }
                 }
                 catch (e) {
                     console.error(e);
