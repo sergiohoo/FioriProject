@@ -2,15 +2,19 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/routing/History",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
 ],
     /**
      * 
      * @param {typeof sap.ui.core.mvc.Controller} Controller 
      * @param {typeof sap.ui.core.routing.History} History 
      * @param {typeof sap.m.MessageBox} MessageBox 
+     * @param {typeof sap.ui.model.Filter} Filter 
+     * @param {typeof sap.ui.model.FilterOperator} FilterOperator 
      */
-    function (Controller, History, MessageBox) {
+    function (Controller, History, MessageBox, Filter, FilterOperator) {
 
         function _onObjectMatched(oEvent) {
             //Limpia la firma al acceder
@@ -34,6 +38,7 @@ sap.ui.define([
         }
 
         function _readSignature(orderId, employeeId) {
+            //Read signature image
             this.getView().getModel("incidenceModel").read("/SignatureSet(OrderId='" + orderId
                 + "',SapId='" + this.getOwnerComponent().SapId
                 + "',EmployeeId='" + employeeId + "')", {
@@ -46,6 +51,20 @@ sap.ui.define([
                 error: function (data) {
 
                 }
+            });
+            //Bind files
+            this.byId("uploadCollection").bindAggregation("items", {
+                path: "incidenceModel>/FilesSet",
+                filters: [
+                    new Filter("OrderId", FilterOperator.EQ, orderId),
+                    new Filter("SapId", FilterOperator.EQ, this.getOwnerComponent().SapId),
+                    new Filter("EmployeeId", FilterOperator.EQ, employeeId),
+                ],
+                template: new sap.m.UploadCollectionItem({
+                    documentId: "{incidenceModel>AttId}",
+                    visibleEdit: false,
+                    fileName: "{incidenceModel>FileName}"
+                }).attachPress(this.downloadFile)
             });
         };
 
@@ -151,13 +170,35 @@ sap.ui.define([
 
             onFileChange: function (oEvent) {
                 let oUplodCollection = oEvent.getSource();
-                
+
                 // Header Token CSRF - Cross-site request forgery
                 let oCustomerHeaderToken = new sap.m.UploadCollectionParameter({
                     name: "x-csrf-token",
                     value: this.getView().getModel("incidenceModel").getSecurityToken()
                 });
                 oUplodCollection.addHeaderParameter(oCustomerHeaderToken);
+            },
+
+            onFileUploadComplete: function (oEvent) {
+                oEvent.getSource().getBinding("items").refresh();
+            },
+
+            onFileDeleted: function (oEvent) {
+                var oUploadCollection = oEvent.getSource();
+                var sPath = oEvent.getParameter("item").getBindingContext("incidenceModel").getPath();
+                this.getView().getModel("incidenceModel").remove(sPath, {
+                    success: function () {
+                        oUploadCollection.getBinding("items").refresh();
+                    },
+                    error: function () {
+
+                    }
+                });
+            },
+
+            downloadFile : function(oEvent) {
+                const sPath = oEvent.getSource().getBindingContext("incidenceModel").getPath();
+                window.open("/sap/opu/odata/sap/YSAPUI5_SRV_01" + sPath + "/$value");
             }
         });
     });
