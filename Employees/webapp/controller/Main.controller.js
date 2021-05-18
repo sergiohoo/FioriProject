@@ -20,11 +20,11 @@ sap.ui.define([
                 // var i18nBundle = oView.getModel("i18n").getResourceBundle();
 
                 var oJSONModelEmployees = new sap.ui.model.json.JSONModel();
-                oJSONModelEmployees.loadData("./localService/mockdata/Employees.json", false);
+                oJSONModelEmployees.loadData("./model/json/Employees.json", false);
                 oView.setModel(oJSONModelEmployees, "jsonEmployees");
 
                 var oJSONModelCountries = new sap.ui.model.json.JSONModel();
-                oJSONModelCountries.loadData("./localService/mockdata/Countries.json", false);
+                oJSONModelCountries.loadData("./model/json/Countries.json", false);
                 oView.setModel(oJSONModelCountries, "jsonCountries");
 
                 var oJSONModelConfig = new sap.ui.model.json.JSONModel({
@@ -38,7 +38,7 @@ sap.ui.define([
                 oView.setModel(oJSONModelConfig, "jsonModelConfig");
 
                 var oJSONModelLayout = new sap.ui.model.json.JSONModel();
-                oJSONModelLayout.loadData("./localService/mockdata/Layout.json", false);
+                oJSONModelLayout.loadData("./model/json/Layout.json", false);
                 oView.setModel(oJSONModelLayout, "jsonLayout");
 
                 this._bus = sap.ui.getCore().getEventBus();
