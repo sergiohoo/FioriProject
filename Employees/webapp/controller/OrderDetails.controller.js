@@ -135,6 +135,30 @@ sap.ui.define([
                         },
                     });
                 }
+            },
+
+            onFileBeforeUpload: function (oEvent) {
+                let fileName = oEvent.getParameter("fileName");
+                let objectContext = oEvent.getSource().getBindingContext("odataNorthwind").getObject();
+                let oCustomerHeaderSlug = new sap.m.UploadCollectionParameter({
+                    name: "slug",
+                    value: objectContext.OrderID + ";" + this.getOwnerComponent().SapId + ";"
+                        + objectContext.EmployeeID
+                        + ";" + fileName
+                });
+                oEvent.getParameters().addHeaderParameter(oCustomerHeaderSlug);
+            },
+
+            onFileChange: function (oEvent) {
+                let oUplodCollection = oEvent.getSource();
+                
+                // Header Token CSRF - Cross-site request forgery
+                let oCustomerHeaderToken = new sap.m.UploadCollectionParameter({
+                    name: "x-csrf-token",
+                    value: this.getView().getModel("incidenceModel").getSecurityToken()
+                });
+                oUplodCollection.addHeaderParameter(oCustomerHeaderToken);
             }
         });
     });
+
